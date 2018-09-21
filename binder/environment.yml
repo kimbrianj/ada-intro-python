@@ -1,4 +1,4 @@
-name: ada-intro-python
+name: intro-python
 channels:
   - conda-forge
 dependencies:

@@ -1,0 +1,960 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Intro\_Python\_1}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{python-workbook-1-what-are-the-characteristics-in-the-number-of-jobs-by-census-block}{%
+\section{Python Workbook 1: What are the characteristics in the number
+of jobs by census
+block?}\label{python-workbook-1-what-are-the-characteristics-in-the-number-of-jobs-by-census-block}}
+
+    In these workbooks, we will start with a motivating question, then walk
+through the process we need to go through in order to answer the
+motivating question. Along the way, we will walk through various Python
+commands and develop skills as we work towards answering the question.
+
+As you work, there will be headers that are in \textbf{{GREEN}}. These
+indicate locations where there is an accompanying video. This video may
+walk through the steps or expand on the topics discussed in that
+section. Though it isn't absolutely necessary to watch the video while
+working through this notebook, we highly recommend watching them at
+least once on your first time through.
+
+\textbf{{If you have not yet watched the ``Introduction to Jupyter
+Notebooks'' video, watch it before you proceed!}}
+
+You will also run into some headers that are in \textbf{{RED}}. These
+headers indicate a checkpoint to practice writing the code yourself. You
+should stop at these checkpoints and try doing the exercises and
+answering the questions posed in these sections.
+
+\textbf{NOTE: When you open a notebook, make sure you run each cell
+containing code from the beginning. Since the code we're writing builds
+on everything written before, if you don't make sure to run everything
+from the beginning, some things may not work.}
+
+In each of the workbooks, we will start out with a motivating question.
+Here, we'll introduce the data that we'll work with, which will lead
+into our motivating question for this workbook.
+
+    \hypertarget{longitudinal-employer-household-dynamics-lehd-data}{%
+\subsection{Longitudinal Employer-Household Dynamics (LEHD)
+Data}\label{longitudinal-employer-household-dynamics-lehd-data}}
+
+In these workbooks, we will be using LEHD data. These are public-use
+data sets containing information about employers and employees.
+Information about the LEHD Data can be found at
+\url{https://lehd.ces.census.gov/}.
+
+We will be using the LEHD Origin-Destination Employment Statistics
+(LODES) datasets in our applications in this workbook. Each state has
+three main types of files: Origin-Destination data, in which job totals
+are associated with a home and work Census block pair, Residence Area
+Characteristic data, in which job totals are by home Census block, and
+Workplace Area Characteristic data, in which job totals are by workplace
+Census block. In addition to these three, there is a ``geographic
+crosswalk'' file with descriptions of the Census Blocks as they appear
+the in the LODES datasets.
+
+You can find more information about the LODES datasets
+\href{https://lehd.ces.census.gov/data/lodes/LODES7/LODESTechDoc7.3.pdf}{here}.
+
+    \hypertarget{motivating-question-video}{%
+\subsection{\texorpdfstring{{Motivating Question
+(VIDEO)}}{Motivating Question (VIDEO)}}\label{motivating-question-video}}
+
+The dataset we'll be working with in this workbook is the Workplace Area
+Characteristics data, which aggregates job totals by workplace census
+block. We want to explore this dataset and get a better idea of the
+distribution of jobs. That is, we want to answer the following
+questions:
+
+\textbf{How can we characterize the number of jobs in the state? What
+can we say about the distribution of the number of jobs by census block?
+What are distributions of jobs by different categories, such as age
+group or industry?}
+
+As you work through this notebook, we'll work towards answering these
+questions, so try to keep in mind what we're working toward.
+
+    \hypertarget{starting-out-introduction-to-python}{%
+\subsection{Starting Out: Introduction to
+Python}\label{starting-out-introduction-to-python}}
+
+In order to try to answer these questions, we'll write code to bring in
+datasets, manipulate these datasets, and summarize datasets using
+Python. Python is a popular general-purpose programming language that
+has seen a rise in use for data analysis. As of 2017, Python is near or
+at the top in terms of popularity in programming languages for data
+analysis (see
+\href{https://www.kdnuggets.com/2017/05/poll-analytics-data-science-machine-learning-software-leaders.html}{the
+kdnuggets post} or
+\href{http://makemeanalyst.com/most-popular-languages-for-data-science-and-analytics-2017/}{a
+look at multiple surveys}).
+
+In addition, unlike other tools for statistical analysis, like Excel or
+Stata, Python is designed to be general-purpose. This means that we
+aren't limited to only doing certain statistical analyses and gives us
+much more flexibility in what we can do.
+
+    \hypertarget{loading-libraries}{%
+\subsection{Loading Libraries}\label{loading-libraries}}
+
+We first load a few libraries. These libraries are essentially bundles
+of useful tools that can help us do specific tasks. In this case, we're
+going to be bringing in NumPy and Pandas, which are specifically useful
+for computing and data analysis. Don't worry too much about the
+specifics of libraries for now, just that we need to include the first
+few lines of code below if we want to use many of the tools described in
+this workbook.
+
+If you'd like to read more about the libraries that we're loading here,
+see the following links: for \href{http://www.numpy.org/}{NumPy} and for
+\href{http://pandas-docs.github.io/pandas-docs-travis/}{Pandas}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} First, we import packages}
+        \PY{c+c1}{\PYZsh{} Note that everything after a \PYZdq{}\PYZsh{}\PYZdq{} in Python will be ignored, so you can use it to write comments}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np} \PY{c+c1}{\PYZsh{} NumPy (Numerical Python) for scientific computing}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd} \PY{c+c1}{\PYZsh{} Pandas, for data analysis tools }
+\end{Verbatim}
+
+
+    Notice that we loaded the libraries with aliases (e.g. \texttt{as\ np}).
+This is just to make it easier to use them later on. Whenever you see
+\texttt{np}, read it as \texttt{numpy}. The same goes for \texttt{pd}
+and \texttt{pandas}.
+
+    \hypertarget{reading-in-the-data-set-video}{%
+\subsection{\texorpdfstring{{Reading in the Data Set
+(VIDEO)}}{Reading in the Data Set (VIDEO)}}\label{reading-in-the-data-set-video}}
+
+We'll start by reading in a data set from a csv, or comma-separated
+value, file. For our examples, we'll use the Workplace Area
+Characteristic (WAC) data from California.
+
+We use the \texttt{read\_csv} function from pandas to read in the csv
+file.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{data\PYZus{}file} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ca\PYZus{}wac\PYZus{}S000\PYZus{}JT00\PYZus{}2015.csv}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{data\PYZus{}file}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} We can also use the following line by itself instead}
+        \PY{c+c1}{\PYZsh{} df = pd.read\PYZus{}csv(\PYZsq{}ca\PYZus{}wac\PYZus{}S000\PYZus{}JT00\PYZus{}2015.csv\PYZsq{})}
+\end{Verbatim}
+
+
+    Let's break the code down. In the first line, we assign
+\texttt{\textquotesingle{}ca\_wac\_S000\_JT00\_2015.csv\textquotesingle{}}
+to the variable \texttt{data\_file}. Note that any text inside quotation
+marks, such as
+\texttt{\textquotesingle{}ca\_wac\_S000\_JT00\_2015.csv\textquotesingle{}},
+is a string, which makes \texttt{data\_file} a string variable. Note
+that this by itself doesn't really do anything fancy. We are just
+setting up a string variable with the text,
+\texttt{\textquotesingle{}ca\_wac\_S000\_JT00\_2015.csv\textquotesingle{}},
+not telling Python to look for a file with that name or anything like
+that yet.
+
+To look at what we've stored inside \texttt{data\_file}, try using the
+\texttt{print} function with \texttt{data\_file} as the argument. What
+do you think the output will be?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{data\PYZus{}file}\PY{p}{)}
+\end{Verbatim}
+
+
+    In the second line, we're using the \texttt{read\_csv()} function from
+the \texttt{pandas} package. Notice that we had to include \texttt{pd.}
+in front of the function. This tells Python to use the
+\texttt{read\_csv} function that is inside the \texttt{pandas} package.
+The function \texttt{read\_csv} outputs a Data Frame, which is then
+assigned to the variable \texttt{df}. This means that our data is now in
+a data frame called \texttt{df}.
+
+\begin{quote}
+\mbox{}%
+\hypertarget{side-note-file-location}{%
+\paragraph{Side Note: File Location}\label{side-note-file-location}}
+
+We only used the file name for \texttt{data\_file}. This is because we
+included the CSV file in the same folder as this notebook. If it were
+somewhere else, we'd have to include the file path (e.g.
+\texttt{"/Documents/precourse/Python/ca\_wac\_S000\_JT00\_2015.csv"}).
+If you don't know much about how file paths work, don't worry: you just
+need to make sure that the file is in the same folder as the notebook.
+\end{quote}
+
+Lastly, we've included a line of code that can load the csv file into
+\texttt{df} in one line. This does the exact same thing as the first two
+lines of code, with the exception of not assigning
+\texttt{\textquotesingle{}ca\_wac\_S000\_JT00\_2015.csv\textquotesingle{}}
+to \texttt{data\_file}. Notice that all we did was replace
+\texttt{data\_file} with the string that we assigned to
+\texttt{data\_file}. It is commented out, but feel free to try running
+it by itself (commenting out the first two lines) to check that it does
+the same thing.
+
+    \hypertarget{a-note-on-data-types}{%
+\subsection{A Note on Data Types}\label{a-note-on-data-types}}
+
+We've mentioned that \texttt{data\_file} is a string variable and that
+\texttt{df} is a pandas Data Frame. These are different variable types,
+and it's important to keep this in mind because the type of variable
+dictates what you can do with it.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n+nb}{type}\PY{p}{(}\PY{n}{data\PYZus{}file}\PY{p}{)}
+\end{Verbatim}
+
+
+    Since \texttt{data\_file} is a string, the \texttt{type} function
+returns \texttt{str} (which stands for string). Let's look at
+\texttt{df}. What do you think the output will be?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n+nb}{type}\PY{p}{(}\PY{n}{df}\PY{p}{)}
+\end{Verbatim}
+
+
+    It tells us that \texttt{df} is a pandas Data Frame. As we'll see later
+on, a Pandas Data Frame, as with other Python objects, has specific
+attributes and functions that you can use with it.
+
+    \hypertarget{checkpoint-1-read-in-other-data}{%
+\subsection{\texorpdfstring{{Checkpoint 1: Read in Other
+Data}}{Checkpoint 1: Read in Other Data}}\label{checkpoint-1-read-in-other-data}}
+
+You can access LODES data from other states by using the link below:
+
+\href{https://lehd.ces.census.gov/data/lodes/LODES7}{LODES Data}
+
+and navigating to the state you want. Check out the
+\href{https://lehd.ces.census.gov/data/lodes/LODES7/LODESTechDoc7.3.pdf}{LODES
+documentation} for more information.
+
+If you download any data, it will go to your local computer. However,
+since this notebook is running from a server in the cloud, you'll have
+to upload it to this server to access it. You can do so by navigating to
+the previous tab (\textbf{Home}), and clicking the Upload button in
+right-hand corner.
+
+If you have problems with that, don't worry. We've included the Illinois
+LODES data in this environment too. The file is named
+\texttt{il\_wac\_S000\_JT00\_2015.csv}. See if you can load it similarly
+to how you loaded the California data above.
+
+Make sure you assign it to a variable other than \texttt{df} so that you
+don't overwrite the data we loaded earlier (for example, if you choose
+Illinois, you might use \texttt{df\_il}). Play around with the few
+functions you've learned.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+
+    \hypertarget{exploring-the-data-frame-video}{%
+\subsection{\texorpdfstring{{Exploring the Data Frame
+(VIDEO)}}{Exploring the Data Frame (VIDEO)}}\label{exploring-the-data-frame-video}}
+
+Now that we've loaded in the data set as a Data Frame, let's check the
+number of rows and columns. We can do this by looking at the
+\texttt{shape} attribute of a data frame.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{df}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+    It looks like there are 243,462 rows and 53 columns.
+
+Let's also find out the names of all the variables in this data set.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{df}\PY{o}{.}\PY{n}{columns}
+\end{Verbatim}
+
+
+    We can use the \texttt{head} and \texttt{tail} methods in order to look
+at the first or last few rows of the data frame.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} Default is to show first 5 rows.}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)} \PY{c+c1}{\PYZsh{} We can specify how many rows we want to see.}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{df}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)} \PY{c+c1}{\PYZsh{} Same as head, except the last 10 instead of first 10}
+\end{Verbatim}
+
+
+    \begin{quote}
+\mbox{}%
+\hypertarget{side-note-instance-variables-and-methods}{%
+\paragraph{Side Note: Instance variables and
+Methods}\label{side-note-instance-variables-and-methods}}
+
+Note that we used \texttt{head()}, with parentheses, while we used just
+\texttt{shape} or \texttt{column}, without parentheses. This is because
+\texttt{shape} and \texttt{column} are \textbf{instance variables} and
+head is a \textbf{method}. To put it another way, \texttt{shape} and
+\texttt{columns} are variables that each Data Frame object has, and
+we're just displaying the values in those variables. On the other hand,
+\texttt{head} is a method, or a function that you perform specifically
+on a certain type of object (in this case, a Data Frame object).
+\end{quote}
+
+    \hypertarget{accessing-the-data-frame}{%
+\subsubsection{Accessing the Data
+Frame}\label{accessing-the-data-frame}}
+
+What if we want to only look at certain cells, or certain columns? We
+can use a variety of commands to do just that.
+
+To access individual columns, we can use square brackets or we can
+simply use dot notation.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Look at just total number of jobs (C000)}
+        \PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{C000}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} 
+        
+        \PY{c+c1}{\PYZsh{} This does the same thing}
+        \PY{n}{df}\PY{o}{.}\PY{n}{C000} 
+\end{Verbatim}
+
+
+    What if we want to get certain rows? We can also use \texttt{loc} with
+square brackets. We use a colon to indicate that we want a series of
+indices with a start and end. We can also leave one side of the colon
+empty to indicate that we want the rest of the values on that end.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Show rows 10 \PYZhy{} 20. Remember, the first row is row 0}
+        \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{:}\PY{l+m+mi}{20}\PY{p}{]} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{]} \PY{c+c1}{\PYZsh{} This gives all rows}
+\end{Verbatim}
+
+
+    In addition, we can use \texttt{loc} to access certain columns as well
+as certain indices in the Data Frame.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Look at rows 10 \PYZhy{} 20 for total number of jobs (C000)}
+        \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{:}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{C000}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Look at rows 10 \PYZhy{} 20 for total number of jobs (C000) and jobs by age group}
+        \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{:}\PY{l+m+mi}{20}\PY{p}{,}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C000}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CA01}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CA02}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CA03}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{p}{]} 
+\end{Verbatim}
+
+
+    Here, we wanted to select 4 variables to look at. Notice that we
+replaced \texttt{"C000"} with
+\texttt{{[}\textquotesingle{}C000\textquotesingle{},\textquotesingle{}CA01\textquotesingle{},\textquotesingle{}CA02\textquotesingle{},\textquotesingle{}CA03\textquotesingle{}{]}}.
+The square brackets create a list with 4 elements,
+\texttt{\textquotesingle{}C000\textquotesingle{}},\texttt{\textquotesingle{}CA01\textquotesingle{}},\texttt{\textquotesingle{}CA02\textquotesingle{}},
+and \texttt{\textquotesingle{}CA03\textquotesingle{}}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n+nb}{type}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C000}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CA01}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CA02}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CA03}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{vars\PYZus{}to\PYZus{}show} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CA01}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CA02}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CA03}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{c+c1}{\PYZsh{} A list of strings containing names of variables (jobs by age group)}
+        \PY{n}{df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{:}\PY{p}{]}\PY{p}{[}\PY{n}{vars\PYZus{}to\PYZus{}show}\PY{p}{]}
+\end{Verbatim}
+
+
+    In this case, we were able to use the ``\texttt{-5:}'' to indicate that
+we want the last 5 rows of the data frame. Note that we can't do the
+same with \texttt{.loc}. This is because \texttt{.loc} retrieves the
+rows from a particular \emph{label} in the Data Frame, while
+\texttt{.iloc} retrieves them from particular \emph{positions}.
+
+    \hypertarget{creating-subsets-of-the-data-video}{%
+\subsection{\texorpdfstring{{Creating Subsets of the Data
+(VIDEO)}}{Creating Subsets of the Data (VIDEO)}}\label{creating-subsets-of-the-data-video}}
+
+Let's look at how many census blocks had more than 50 jobs. We can do
+this by including a conditional statement inside brackets.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{df\PYZus{}over50} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C000}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{50}\PY{p}{]}
+        \PY{n}{df\PYZus{}over50}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+    To see how exactly this works, let's see what happens when we run only
+what's inside the brackets.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C000}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{50} \PY{c+c1}{\PYZsh{} This will be a pandas Series with True and False values}
+\end{Verbatim}
+
+
+    The above code evaluates whether the value in \texttt{C000} is above 50
+for each row in the data frame, creating a Series with length equal to
+the number of rows with ``True'' or ``False'' depending on whether that
+row had a value above 50 in \texttt{C000}. By putting this conditional
+statement into the brackets, we are telling Python which rows we want to
+include in our subsetted data frame using \texttt{True} and
+\texttt{False}.
+
+    We can also use more complicated subsets. For example, let's say we
+wanted to look at the census blocks with between 50 and 100 jobs.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{df\PYZus{}50to100} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C000}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{50}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C000}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{l+m+mi}{100}\PY{p}{)}\PY{p}{]}
+        \PY{n}{df\PYZus{}50to100}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+    Notice that we replaced our conditional statement from before with
+\texttt{(df{[}\textquotesingle{}C000\textquotesingle{}{]}\ \textgreater{}\ 50)\ \&\ (df{[}\textquotesingle{}C000\textquotesingle{}{]}\ \textless{}\ 100)}.
+This says that we want each row that meets both conditions,
+\texttt{(df{[}\textquotesingle{}C000\textquotesingle{}{]}\ \textgreater{}\ 50)}
+and
+\texttt{(df{[}\textquotesingle{}C000\textquotesingle{}{]}\ \textless{}\ 100)}.
+
+What about the rest? Well, we can find the rows with less than or equal
+to 50 jobs OR greater than or equal to 100 jobs.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{df\PYZus{}not50to100} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C000}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{50}\PY{p}{)} \PY{o}{|} \PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C000}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mi}{100}\PY{p}{)}\PY{p}{]}
+        \PY{n}{df\PYZus{}not50to100}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+    \hypertarget{checkpoint-2-explore-your-data}{%
+\subsection{Checkpoint 2: Explore Your
+Data}\label{checkpoint-2-explore-your-data}}
+
+Now look at the data frame you loaded earlier using the tools we've just
+covered. Do the number of rows and columns make sense? Try subsetting
+the data set. How does it compare to the results from California? Does
+it make sense?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+
+    \hypertarget{checking-for-missing-values}{%
+\subsection{Checking for Missing
+Values}\label{checking-for-missing-values}}
+
+Now that we have our data set, let's do a quick check for missing
+values. This is typically one of the first things you'll want to do when
+exploring a new data set.
+
+Below, we've shown two different ways of writing the same thing. Using
+\texttt{isnull()} gives us a data frame of the same size with
+\texttt{True} and \texttt{False} values depending on whether it was a
+missing value or not. Then, \texttt{sum()} sums each column. Since
+Python treats \texttt{True} as \texttt{1} and \texttt{False} as
+\texttt{0}, the sum of each column gives us the total number of missing
+values for each variable.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{df\PYZus{}null} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}
+        \PY{n}{df\PYZus{}null}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    We did this in two separate lines, but that's actually not necessary. In
+fact, we can do it all in one go:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{df}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    We can also drop any duplicated rows.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{df\PYZus{}no\PYZus{}dups} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{drop\PYZus{}duplicates}\PY{p}{(}\PY{p}{)}
+        \PY{n}{df\PYZus{}no\PYZus{}dups}\PY{o}{.}\PY{n}{shape} \PY{c+c1}{\PYZsh{} Check how many rows there are after dropping duplicates}
+\end{Verbatim}
+
+
+    \hypertarget{checking-for-inconsistencies-video}{%
+\subsection{\texorpdfstring{{Checking for Inconsistencies
+(VIDEO)}}{Checking for Inconsistencies (VIDEO)}}\label{checking-for-inconsistencies-video}}
+
+If you check the data documentation, you'll see that \texttt{C000} is
+the total number of jobs. Therefore, it would make sense for the other
+groups to columns to add up to the values in \texttt{C000}. For example,
+you'd expect \texttt{CA01}, \texttt{CA02}, and \texttt{CA03} to add up
+to \texttt{C000} for each row. Let's check to see if this is true.
+
+We'll first take the sum of \texttt{CA01}, \texttt{CA02}, and
+\texttt{CA03} in each row and put that in a new column called
+\texttt{CA\_sum}. Then, we'll compare our new \texttt{CA\_sum} column to
+the existing \texttt{C000} column to see if they match. We'll first show
+all the code, then explain each section.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Create a list with the columns we want to add up}
+        \PY{n}{vars\PYZus{}to\PYZus{}check} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CA01}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CA02}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CA03}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} Using apply to sum the columns for each row}
+        \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CA\PYZus{}sum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{vars\PYZus{}to\PYZus{}check}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n+nb}{sum}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Check how many rows don\PYZsq{}t match}
+        \PY{n+nb}{sum}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{CA\PYZus{}sum} \PY{o}{!=} \PY{n}{df}\PY{o}{.}\PY{n}{C000}\PY{p}{)}
+\end{Verbatim}
+
+
+    We first created a list called \texttt{vars\_to\_check}, which contains
+the columns that we want to add up. Then, we took those columns from
+\texttt{df} and used the \texttt{apply()} method, which applies the same
+function to each row (or column, if we used \texttt{0} in the second
+argument instead of \texttt{1}). In this case, we want to find the sum
+of each row, so the first argument is \texttt{sum}. We want to create a
+new column that contains this sum, so we assign that to a new column in
+\texttt{df}, \texttt{CA\_sum}. Notice that this is the first place we
+see \texttt{\textquotesingle{}CA\_sum\textquotesingle{}}, because this
+is where we are creating it.
+
+Lastly, we want to check how many rows in which \texttt{C000} and
+\texttt{CA\_sum} differ. We do this by using
+
+\begin{verbatim}
+df.CA_sum != df.C000
+\end{verbatim}
+
+which outputs a Series of \texttt{True} and \texttt{False} values:
+\texttt{True} if the value in \texttt{CA\_sum} is not equal to the value
+in \texttt{C000} for that row, and \texttt{False} otherwise. In other
+words, this is a Series of \texttt{True}s and \texttt{False}s indicating
+whether the values for the row didn't match. We can then use the
+\texttt{sum} function from NumPy to add up how many times they didn't
+match. If there are no errors, the sum should be 0.
+
+    \hypertarget{checking-for-outliers}{%
+\subsection{Checking for Outliers}\label{checking-for-outliers}}
+
+Suppose we want to check if there are any outliers in total number of
+jobs by census block. We can sort the values in \texttt{C000} in order
+to figure this out. Let's say we want to find the top ten census blocks
+by total number of jobs.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{df}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{C000}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+    Let's break this down piece by piece. First, we use the
+\texttt{sort\_values()} method to sort the Data Frame by \texttt{C000}.
+We use \texttt{ascending=False} so that the highest values are at the
+top (the default is to sort in ascending order). This would give us
+
+\begin{verbatim}
+df.sort_values("C000",ascending=False)
+\end{verbatim}
+
+However, we don't want to look at everything. Here, we use
+\texttt{head()} to give us only the top ten values after sorting. This
+gives us the final code,
+\texttt{df.sort\_values("C000",ascending=False).head(10)}.
+
+    \hypertarget{descriptive-statistics}{%
+\subsection{Descriptive Statistics}\label{descriptive-statistics}}
+
+Let's try to get some useful summary statistics of the variables in the
+data set. We use \texttt{describe()}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{df}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    As you can see, this gives us the count, mean, standard deviation,
+minimum, 25th percentile (first quartile), 50th percentile (median),
+75th percentile (third quartile), and maximum. Notice that it gives us
+these summaries even for the variables that don't make sense (the
+geocode variables).
+
+This gives a lot more information than you might want. What if we just
+wanted to look at a few columns? You might do something like the
+following.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{C000}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CA01}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CA02}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CA03}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    You might also decide that you only want to find certain values, like
+the mean. You can do that too.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{C000}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CA01}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CA02}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CA03}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{more-descriptive-statistics}{%
+\subsection{More Descriptive
+Statistics}\label{more-descriptive-statistics}}
+
+Before we answer the question posed at the beginning of the workbook, we
+want to do a little more exploration of the data set. Many times, this
+is where we might find out how exactly the question should be framed.
+For example, we might want to know the distribution of jobs by age group
+for blocks with greater than 50 jobs. How would we do this?
+
+Recall that we made a subset of the \texttt{df} Data Frame earlier
+called \texttt{df\_over50}. We can use \texttt{describe()} on this
+subsetted Data Frame.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{df\PYZus{}over50}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    We can also create new variables. Here, we're going to create an
+indicator for whether a census block has more than 50 jobs in it.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{over50}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{C000} \PY{o}{\PYZgt{}} \PY{l+m+mi}{50}
+        \PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{C000}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{over50}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    Note that we don't have a variable in \texttt{df} called \texttt{over50}
+before we run the first line in the above cell. What we're doing with
+that one line is creating a new column called \texttt{over50} and
+filling it with the values in the conditional statement
+\texttt{df.C000\ \textgreater{}\ 50}. We've then printed out the first
+few rows using \texttt{head()} to see that it's working properly.
+
+    \hypertarget{checkpoint-3-descriptive-statistics-on-your-data}{%
+\subsection{\texorpdfstring{{Checkpoint 3: Descriptive Statistics on
+Your
+Data}}{Checkpoint 3: Descriptive Statistics on Your Data}}\label{checkpoint-3-descriptive-statistics-on-your-data}}
+
+Using the tools described above, look at the data you loaded in earlier.
+Make sure you know the answers to each of the following questions: - Are
+there any missing values? - What is the mean of each variable? - Are
+there any inconsistencies in the data? - Are there missing values that
+may not have been coded as missing? - Are there any interesting
+outliers?
+
+In addition, try to think about the distribution of jobs by different
+characteristics like age group and industry. Which age group had the
+most jobs in the state? Which industry?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+
+    \hypertarget{to-turn-in}{%
+\subsection{\texorpdfstring{{TO TURN
+IN}}{TO TURN IN}}\label{to-turn-in}}
+
+Answer all of the questions in each checkpoint and include both the
+answers and the code used to answer the question. Download this
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

@@ -2,7 +2,8 @@ name: intro-python
 channels:
   - conda-forge
 dependencies:
+  - numpy
   - matplotlib
+  - pandas
   - ipywidgets
   - beakerx
-  - numpy

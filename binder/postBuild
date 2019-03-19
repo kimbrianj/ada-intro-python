@@ -1,5 +1,12 @@
 #!/bin/bash
 
+jupyter contrib nbextension install --user
+jupyter nbextension enable --py widgetsnbextension
+jupyter nbextension enable python-markdown/main
+
+# Notebooks w/ extensions that auto-run code must be "trusted" to work the first time
+jupyter trust index.ipynb
+
 files='ca_wac_2015.sql ca_rac_2015.sql ca_od_2015.sql ca_xwalk.sql mo_xwalk.sql'
 
 for file in $files
@@ -8,3 +15,4 @@ do
   sqlite3 lodes.db < ~/data/${file}
   rm ~/data/${file}
 done
+
